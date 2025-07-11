@@ -1,3 +1,6 @@
+import AppConfig
+import Flavor
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,36 +8,55 @@ plugins {
 }
 
 android {
-    namespace = "com.jonlange.jhtassessment"
-    compileSdk = 36
+    namespace = AppConfig.namespace
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = "com.jonlange.jhtassessment"
-        minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = AppConfig.namespace
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions += "tier"
+
+    productFlavors {
+        Flavor.values().forEach { flavor ->
+            create(flavor.name) {
+                dimension = flavor.dimension
+                applicationIdSuffix = flavor.applicationIdSuffix
+                versionNameSuffix = flavor.versionNameSuffix
+
+                //noinspection WrongGradleMethod
+                flavor.buildConfigFields.forEach { (k,v) ->
+                    buildConfigField("String", k,v)
+                }
+            }
+        }
+    }
+
     buildTypes {
-        release {
+        debug {
+            isDebuggable = true
             isMinifyEnabled = false
+            // TODO: Add debug proguard files
+        }
+
+        release {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // TODO: Add signing config if desired
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
