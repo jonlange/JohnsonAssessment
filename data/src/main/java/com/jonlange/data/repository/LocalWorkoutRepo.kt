@@ -9,5 +9,5 @@ interface LocalWorkoutRepo {
 
     suspend fun updateWorkouts()
 
-    suspend fun loadWorkoutsFromRaw(rawResId: Int)
+    suspend fun loadWorkoutsFromRaw(rawResId: Int): List<Workout>
 }
