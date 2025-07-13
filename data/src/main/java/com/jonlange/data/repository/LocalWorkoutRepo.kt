@@ -1,6 +1,6 @@
 package com.jonlange.data.repository
 
-import com.jonlange.core.model.Workout
+import com.jonlange.data.model.Workout
 import kotlinx.coroutines.flow.StateFlow
 
 interface LocalWorkoutRepo {

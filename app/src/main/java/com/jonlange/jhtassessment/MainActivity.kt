@@ -29,9 +29,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JohnsonAssessmentTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    WorkoutHomeScreen(Modifier.padding(innerPadding))
-                }
+                WorkoutHomeScreen()
             }
         }
     }

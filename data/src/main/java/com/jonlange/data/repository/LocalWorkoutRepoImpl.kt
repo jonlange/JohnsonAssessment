@@ -1,13 +1,11 @@
 package com.jonlange.data.repository
 
-import android.util.Log
 import com.jonlange.core.ResourceLoader
-import com.jonlange.core.model.Workout
+import com.jonlange.data.model.Workout
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 

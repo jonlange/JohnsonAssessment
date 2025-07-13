@@ -1,4 +1,4 @@
-package com.jonlange.core.model
+package com.jonlange.data.model
 
 import kotlinx.serialization.Serializable
 
@@ -8,5 +8,5 @@ data class Workout (
     val name: String = "",
     val equipment: String = "",
     val duration: Int = 0,
-    val difficulty: WorkoutDifficulty? = WorkoutDifficulty.Unknown
+    val difficulty: WorkoutDifficulty = WorkoutDifficulty.Unknown
 )

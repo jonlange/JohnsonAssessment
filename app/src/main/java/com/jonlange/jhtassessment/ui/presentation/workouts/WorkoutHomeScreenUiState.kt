@@ -1,6 +1,6 @@
 package com.jonlange.jhtassessment.ui.presentation.workouts
 
-import com.jonlange.core.model.Workout
+import com.jonlange.data.model.Workout
 
 data class WorkoutHomeScreenUiState(
     val isRefreshing: Boolean = false,
