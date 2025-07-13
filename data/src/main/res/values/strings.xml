@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_difficulty_unknown">Unknown</string>
+    <string name="workout_difficulty_beginner">Beginner</string>
+    <string name="workout_difficulty_intermediate">Intermediate</string>
+    <string name="workout_difficulty_Advanced">Advanced</string>
+</resources>

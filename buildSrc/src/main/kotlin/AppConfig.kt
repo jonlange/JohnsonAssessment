@@ -1,5 +1,5 @@
 object AppConfig {
-    const val namespace = "com.jonlange.jhtassessment"
+    const val namespace = "com.jonlange"
     const val compileSdk = 35
     const val minSdk = 26
     const val targetSdk = 35

@@ -20,5 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "JohnsonAssessment"
-include(":app")
- 
+include(":app", ":data", ":core")
