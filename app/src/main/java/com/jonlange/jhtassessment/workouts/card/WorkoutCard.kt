@@ -1,4 +1,4 @@
-package com.jonlange.jhtassessment.workouts.workoutcard
+package com.jonlange.jhtassessment.workouts.card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

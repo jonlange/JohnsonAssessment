@@ -7,7 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.jonlange.jhtassessment.workouts.WorkoutDetailScreen
+import com.jonlange.jhtassessment.workouts.detail.WorkoutDetailScreen
 import com.jonlange.jhtassessment.workouts.WorkoutHomeScreen
 
 @Composable

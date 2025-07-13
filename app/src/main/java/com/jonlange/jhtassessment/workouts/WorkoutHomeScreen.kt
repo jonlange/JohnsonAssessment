@@ -9,16 +9,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jonlange.jhtassessment.workouts.workoutcard.WorkoutCards
+import com.jonlange.jhtassessment.workouts.card.WorkoutCards
 import com.jonlange.jhtassessment.ui.theme.Purple80
 import kotlinx.collections.immutable.toImmutableList
 
@@ -26,7 +23,7 @@ import kotlinx.collections.immutable.toImmutableList
 fun WorkoutHomeScreen(
     modifier: Modifier = Modifier,
     onWorkoutSelected: (String) -> Unit,
-    viewModel: WorkoutHomeScreenViewModel = hiltViewModel()
+    viewModel: WorkoutHomeViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
@@ -43,7 +40,7 @@ fun WorkoutHomeScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkoutHomeScreen(
-    uiState: WorkoutHomeScreenUiState,
+    uiState: WorkoutHomeUiState,
     modifier: Modifier = Modifier,
     onWorkoutSelected: (String) -> Unit,
 ) {
