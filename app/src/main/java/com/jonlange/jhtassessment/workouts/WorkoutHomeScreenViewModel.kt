@@ -1,6 +1,5 @@
-package com.jonlange.jhtassessment.ui.presentation.workouts
+package com.jonlange.jhtassessment.workouts
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jonlange.data.repository.LocalWorkoutRepo

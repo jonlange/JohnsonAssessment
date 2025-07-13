@@ -1,6 +1,5 @@
-package com.jonlange.jhtassessment.ui.presentation.workouts.workoutcard
+package com.jonlange.jhtassessment.workouts.workoutcard
 
-import android.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,12 +34,14 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 fun WorkoutCards(
    workouts: ImmutableList<Workout>,
+   onWorkoutSelected: (String) -> Unit,
    modifier: Modifier = Modifier
 ) {
     LazyColumn(contentPadding = PaddingValues(10.dp)) {
         itemsIndexed(workouts) { index, workout ->
             WorkoutCard(
-                workout
+                workout = workout,
+                onClick = onWorkoutSelected
             )
 
             if (index != workouts.lastIndex) Spacer(Modifier.size(10.dp))
@@ -54,7 +54,7 @@ fun WorkoutCards(
 private fun WorkoutCard(
     workout: Workout,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: (String) -> Unit = {}
 ) {
 
     val difficultyLabel = stringResource(workout.difficulty.labelRes)
@@ -65,7 +65,7 @@ private fun WorkoutCard(
         modifier = modifier
             .fillMaxWidth()
             .clickable {
-                onClick()
+                onClick(workout.id)
             }
     ) {
         // Workout Name

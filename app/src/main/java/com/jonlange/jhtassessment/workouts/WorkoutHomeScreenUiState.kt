@@ -1,4 +1,4 @@
-package com.jonlange.jhtassessment.ui.presentation.workouts
+package com.jonlange.jhtassessment.workouts
 
 import com.jonlange.data.model.Workout
 
