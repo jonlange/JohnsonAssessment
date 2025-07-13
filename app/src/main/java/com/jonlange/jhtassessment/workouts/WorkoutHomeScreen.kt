@@ -33,10 +33,6 @@ fun WorkoutHomeScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        viewModel.reset()
-    }
-
     WorkoutHomeScreen(
         uiState = uiState,
         modifier = modifier,
@@ -73,12 +69,12 @@ fun WorkoutHomeScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            PullToRefreshBox(
-                isRefreshing = uiState.isRefreshing,
-                onRefresh = {},
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.TopCenter
-            ) {
+//            PullToRefreshBox(
+//                isRefreshing = uiState.isResetting,
+//                onRefresh = {},
+//                modifier = Modifier.fillMaxSize(),
+//                contentAlignment = Alignment.TopCenter
+//            ) {
 
                 if (uiState.workouts.isEmpty()) {
                     // Show empty view
@@ -89,7 +85,7 @@ fun WorkoutHomeScreen(
                         onWorkoutSelected = onWorkoutSelected
                     )
                 }
-            }
+//            }
         }
     }
 }

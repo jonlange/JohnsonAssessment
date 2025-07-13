@@ -41,11 +41,7 @@ fun WorkoutsNavHost(
                 }
             )
         ) { backStack ->
-
-            val workoutId = backStack.arguments?.getString("workoutId") ?: "Unknown"
-
             WorkoutDetailScreen(
-                workoutId = workoutId,
                 onNavigateBack = { navController.popBackStack() }
             )
         }
