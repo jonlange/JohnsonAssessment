@@ -53,9 +53,29 @@ Please fill out the section below before submitting your solution.
 
 ### What did you focus on and why?
 
+For this assessment I really wanted to focus on laying the groundwork for a fully functioning, multi-module, clean architecture.
+Its been quite some time since I worked on brand new app so I wanted to experiment with a few things to both learn and have fun with new 
+features of Android and compose. One of the core focuses I had for this was to be efficient but also follow best practices. There are definitely
+some shortcuts I chose not to take that might have allowed me more time for other things, (like UI polish), but I take pride in doing the small 
+things right, even if it takes longer.
+
 ### What would you improve with more time?
 
+The User Interface! I'm definitely a programmer when it comes to UI and I tend to lean towards the bare bones proof of concept for new projects. 
+If I had more time I would have loved to add some UI polish including animated navigations transitions, better colors, better usage of screen 
+real estate and better iconography. 
+
+I also would have taken a more persistant approach with data. This type of app lends itself well to using Room persistence and would have been
+nice to store and load the workouts into the Room database. This would have allowed for persistence across app closes as well as allowed for 
+more robust workout editing.
+
 ### How did you approach testing?
+
+I attempted to use pure JVM testing, but unfortunately due to my usage of Hilt, I couldn't quite get that to work right. I was able to create basic
+unit tests around the parsing of the supplied json file. There isn't a whole lot to test due to Kotlinx Serialization's zero code parsers, (basically
+just annotated data classes), but I wanted to have something for that. The ViewModel testing was a different story however, and took way more time than
+I was anticipating. I did get it working in the end and learned a few things about Hilt mocking along the way. In general my testing strategy is more 
+robust, and I think given more time I would have focused on that aspect more.
 
 ---
 
