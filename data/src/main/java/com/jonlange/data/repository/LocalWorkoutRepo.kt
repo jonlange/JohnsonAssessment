@@ -5,9 +5,9 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface LocalWorkoutRepo {
 
-    val workouts: StateFlow<List<Workout>?>
+    val workouts: StateFlow<List<Workout>>
 
-    suspend fun updateWorkouts()
+    suspend fun updateWorkout(updatedWorkout: Workout)
 
-    suspend fun loadWorkoutsFromRaw(rawResId: Int): List<Workout>
+    suspend fun loadWorkoutsFromRaw(rawResId: Int)
 }
