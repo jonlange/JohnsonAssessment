@@ -9,8 +9,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,7 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jonlange.data.model.Workout
+import com.jonlange.data.model.WorkoutDifficulty
+import com.jonlange.jhtassessment.ui.theme.OffWhite
 import com.jonlange.jhtassessment.ui.theme.Purple80
+import com.jonlange.jhtassessment.ui.theme.PurpleGrey40
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,17 +47,53 @@ fun WorkoutDetailScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
-        containerColor = Purple80,
+        containerColor = uiState.editedWorkout?.difficulty?.color ?: WorkoutDifficulty.Unknown.color,
         topBar = {
             TopAppBar(
                 title = {
                     Text(text = "Workout Details")
+                },
+                navigationIcon = {
+                    IconButton(
+                        onClick = onNavigateBack
+                    ) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                actions = {
+                    // If we are showing editing content, show Save and Cancel
+                    if (uiState.isEditing) {
+                        IconButton(
+                            onClick = {
+                                viewModel.onEvent(WorkoutDetailEvent.Save)
+                            }
+                        ) {
+                            Icon(Icons.Default.Check, contentDescription = "Save")
+                        }
+                        IconButton(
+                            onClick = {
+                                viewModel.onEvent(WorkoutDetailEvent.Cancel)
+                            }
+                        ) {
+                            Icon(Icons.Default.Close, contentDescription = "Cancel")
+                        }
+                    }
+                    // If we are in view only, show Edit
+                    else {
+                        IconButton(
+                            onClick = {
+                                viewModel.setEditing(true)
+                            }
+                        ) {
+                            Icon(Icons.Default.Edit, contentDescription = "Edit")
+                        }
+                    }
                 }
             )
         }
     ) { paddingValues ->
 
-        val workout = uiState.workout
+        val workout = uiState.editedWorkout
 
         // This should never actually happen, but we want to return early if we are still loading.
         if (workout == null) {
@@ -67,9 +114,16 @@ fun WorkoutDetailScreen(
         ) {
             if (uiState.isEditing) {
                 // Workout Editing Screen
+                WorkoutEditContent(
+                    workout = workout,
+                    onEvent = {
+                        // Let viewmodel handle events
+                        viewModel.onEvent(it)
+                    }
+                )
             } else {
                 // Workout Detail Screen
-                WorkoutDetails(
+                WorkoutDetail(
                     workout = workout
                 )
             }
@@ -84,7 +138,7 @@ fun WorkoutDetailScreen(
 }
 
 @Composable
-fun WorkoutDetails(
+fun WorkoutDetail(
     workout: Workout,
 ) {
     Text(
@@ -115,7 +169,7 @@ fun WorkoutDetailItem(
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(

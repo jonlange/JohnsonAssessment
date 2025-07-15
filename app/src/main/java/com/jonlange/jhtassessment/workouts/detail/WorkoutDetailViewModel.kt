@@ -44,7 +44,10 @@ class WorkoutDetailViewModel @Inject constructor(
                 Log.d(TAG, "Workout Found: $workout")
 
                 _uiState.update {
-                    it.copy(workout = workout)
+                    it.copy(
+                        workout = workout,
+                        editedWorkout = workout
+                    )
                 }
 
             }
@@ -58,10 +61,20 @@ class WorkoutDetailViewModel @Inject constructor(
 
         viewModelScope.launch {
             // TODO: Add support for this to the repo
-            //localWorkoutRepo.updateWorkouts()
+            //localWorkoutRepo.updateWorkout()
             _uiState.update {
                 it.copy(isSaving = false, isEditing = false)
             }
+        }
+    }
+
+    // Reset editedWorkout back to original
+    fun cancelEditing() {
+        _uiState.update { current ->
+            current.copy(
+                editedWorkout = current.workout,
+                isEditing = false
+            )
         }
     }
 
@@ -70,38 +83,43 @@ class WorkoutDetailViewModel @Inject constructor(
         _uiState.update { it.copy(isEditing = isEditing)}
     }
 
-    // TODO: Provide some validation of these fields
-    // Handle Name change
-    fun onNameChange(newName: String) {
-        _uiState.update {
-            it.copy(
-                workout = it.workout?.copy(name = newName)
-            )
-        }
-    }
-
-    fun onEquipmentChange(newEquipment: String) {
-        _uiState.update {
-            it.copy(
-                workout = it.workout?.copy(equipment = newEquipment)
-            )
-        }
-    }
-
-    fun onDurationChange(newDurationString: String) {
-        val newDuration = newDurationString.toIntOrNull() ?: 0
-        _uiState.update {
-            it.copy(
-                workout = it.workout?.copy(duration = newDuration)
-            )
-        }
-    }
-
-    fun onDifficultyChange(newDifficulty: WorkoutDifficulty) {
-        _uiState.update {
-            it.copy(
-                workout = it.workout?.copy(difficulty = newDifficulty)
-            )
+    fun onEvent(event: WorkoutDetailEvent) {
+        when (event) {
+            is WorkoutDetailEvent.NameChanged -> {
+                _uiState.update { current ->
+                    current.copy(
+                        editedWorkout = current.editedWorkout?.copy(name = event.newName)
+                    )
+                }
+            }
+            is WorkoutDetailEvent.EquipmentChanged -> {
+                _uiState.update { current ->
+                    current.copy(
+                        editedWorkout = current.editedWorkout?.copy(equipment = event.newEquipment)
+                    )
+                }
+            }
+            is WorkoutDetailEvent.DurationChanged -> {
+                val duration = event.newDuration.toIntOrNull() ?: 0
+                _uiState.update { current ->
+                    current.copy(
+                        editedWorkout = current.editedWorkout?.copy(duration = duration)
+                    )
+                }
+            }
+            is WorkoutDetailEvent.DifficultyChanged -> {
+                _uiState.update { current ->
+                    current.copy(
+                        editedWorkout = current.editedWorkout?.copy(difficulty = event.newDifficulty)
+                    )
+                }
+            }
+            WorkoutDetailEvent.Save -> {
+                saveWorkout()
+            }
+            WorkoutDetailEvent.Cancel -> {
+                cancelEditing()
+            }
         }
     }
 

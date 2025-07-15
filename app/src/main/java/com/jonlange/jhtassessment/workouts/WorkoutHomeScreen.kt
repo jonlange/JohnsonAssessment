@@ -15,8 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jonlange.jhtassessment.ui.theme.OffWhite
+import com.jonlange.jhtassessment.ui.theme.Pink40
 import com.jonlange.jhtassessment.workouts.card.WorkoutCards
 import com.jonlange.jhtassessment.ui.theme.Purple80
+import com.jonlange.jhtassessment.ui.theme.PurpleGrey40
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
@@ -46,7 +49,7 @@ fun WorkoutHomeScreen(
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        containerColor = Purple80,
+        containerColor = OffWhite,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
