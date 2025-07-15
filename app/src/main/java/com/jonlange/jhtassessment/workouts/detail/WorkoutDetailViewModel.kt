@@ -55,15 +55,20 @@ class WorkoutDetailViewModel @Inject constructor(
     }
 
     fun saveWorkout() {
-        val updatedWorkout = _uiState.value.workout ?: return
+        val updatedWorkout = _uiState.value.editedWorkout ?: return
 
         _uiState.update { it.copy(isSaving = true) }
 
         viewModelScope.launch {
             // TODO: Add support for this to the repo
-            //localWorkoutRepo.updateWorkout()
+            localWorkoutRepo.updateWorkout(updatedWorkout)
             _uiState.update {
-                it.copy(isSaving = false, isEditing = false)
+                it.copy(
+                    workout = updatedWorkout,
+                    editedWorkout = updatedWorkout,
+                    isSaving = false,
+                    isEditing = false
+                )
             }
         }
     }

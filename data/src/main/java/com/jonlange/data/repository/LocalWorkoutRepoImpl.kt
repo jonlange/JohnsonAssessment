@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.serialization.builtins.ListSerializer
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,7 +27,12 @@ class LocalWorkoutRepoImpl @Inject constructor(
     private val _workouts = MutableStateFlow<ImmutableList<Workout>>(persistentListOf())
     override val workouts = _workouts.asStateFlow()
 
-    override suspend fun updateWorkouts() {
+    override suspend fun updateWorkout(updatedWorkout: Workout) {
+        _workouts.update { currentWorkouts ->
+            currentWorkouts.map { workout ->
+                if (workout.id == updatedWorkout.id) updatedWorkout else workout
+            }.toImmutableList()
+        }
     }
 
     // IF we do not want to pass in the resId, we can move the JSON to the data module, but I left
